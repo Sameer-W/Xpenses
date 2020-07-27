@@ -11,21 +11,18 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
+  final commentController = TextEditingController();
   final amountController = TextEditingController();
 
   void submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
-
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    final enteredComment = commentController.text;
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || enteredComment.isEmpty) {
       return;
     }
 
-    widget.addTx(
-      enteredTitle,
-      enteredAmount,
-    );
+    widget.addTx(enteredTitle, enteredAmount, enteredComment);
 
     Navigator.of(context).pop();
   }
@@ -54,9 +51,17 @@ class _NewTransactionState extends State<NewTransaction> {
               onSubmitted: (_) => submitData(),
               // onChanged: (val) => amountInput = val,
             ),
+            TextField(
+              decoration: InputDecoration(labelText: 'Comment'),
+              controller: commentController,
+              onSubmitted: (_) => submitData(),
+              // onChanged: (val) {
+              //   titleInput = val;
+              // },
+            ),
             FlatButton(
               child: Text('Add Transaction'),
-              textColor: Colors.purple,
+              textColor: Colors.pink,
               onPressed: submitData,
             ),
           ],

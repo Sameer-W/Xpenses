@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.pink,
           accentColor: Colors.amber,
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
@@ -60,10 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount, String txComment) {
     final newTx = Transaction(
       title: txTitle,
       amount: txAmount,
+      comment: txComment,
       date: DateTime.now(),
       id: DateTime.now().toString(),
     );
@@ -128,7 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () => _startAddNewTransaction(context),
       ),
     );
