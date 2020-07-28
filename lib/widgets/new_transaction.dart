@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -13,6 +14,7 @@ class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
   final commentController = TextEditingController();
   final amountController = TextEditingController();
+  final _firestore = Firestore.instance;
 
   void submitData() {
     final enteredTitle = titleController.text;
@@ -21,6 +23,10 @@ class _NewTransactionState extends State<NewTransaction> {
     if (enteredTitle.isEmpty || enteredAmount <= 0 || enteredComment.isEmpty) {
       return;
     }
+
+    _firestore
+        .collection('transactions')
+        .add({'amount': enteredAmount, 'name': enteredTitle});
 
     widget.addTx(enteredTitle, enteredAmount, enteredComment);
 

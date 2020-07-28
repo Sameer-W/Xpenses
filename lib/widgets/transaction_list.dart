@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../models/transaction.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TransactionList extends StatelessWidget {
-  final List<Transaction> transactions;
-
+  final List<Transactions> transactions;
   TransactionList(this.transactions);
 
   @override
@@ -15,20 +14,27 @@ class TransactionList extends StatelessWidget {
       child: transactions.isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'No transactions added yet!',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                    height: 200,
-                    child: Image.asset(
-                      'assets/images/waiting.png',
-                      fit: BoxFit.cover,
-                    )),
+                Expanded(
+                  child: Icon(
+                    Icons.account_balance_wallet,
+                    size: 100,
+                    color: Colors.black38,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'No transactions added yet!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .copyWith(color: Colors.black38),
+                  ),
+                ),
               ],
             )
           : ListView.builder(
@@ -72,14 +78,6 @@ class TransactionList extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Spacer(),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                      )
                     ],
                   ),
                 );

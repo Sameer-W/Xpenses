@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class Transaction {
+class Transactions {
   final String id;
   final String title;
   final String comment;
@@ -8,7 +8,7 @@ class Transaction {
 
   final DateTime date;
 
-  Transaction({
+  Transactions({
     @required this.id,
     @required this.title,
     this.comment,
