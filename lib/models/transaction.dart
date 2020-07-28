@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class Transactions {
   final String id;
-  final String title;
+  final String name;
   final String comment;
   final double amount;
 
@@ -10,7 +10,7 @@ class Transactions {
 
   Transactions({
     @required this.id,
-    @required this.title,
+    @required this.name,
     this.comment,
     @required this.amount,
     @required this.date,

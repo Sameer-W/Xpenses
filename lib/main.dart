@@ -52,10 +52,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transactions> userTransactions = [];
+  double bal = 0;
+
+  updateBalance(enteredAmount) {
+    bal = bal - enteredAmount;
+  }
 
   void _addNewTransaction(String txTitle, double txAmount, String txComment) {
     final newTx = Transactions(
-      title: txTitle,
+      name: txTitle,
       amount: txAmount,
       comment: txComment,
       date: DateTime.now(),
@@ -80,84 +85,136 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+//TODO: Test this first
+  void _startAddMoney(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          child: Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                    keyboardType: TextInputType.number,
+                    onSubmitted: (balance) {
+                      Navigator.pop(context);
+                      bal = bal + double.parse(balance);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
+
   void choiceAction(String choice) {
     if (choice == PopupMenuItems.debit) {
       _startAddNewTransaction(context);
+    }
+    if (choice == PopupMenuItems.credit) {
+      _startAddMoney(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.pink,
+    return SafeArea(
+      child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Text('Drawer Header'),
+                decoration: BoxDecoration(
+                  color: Colors.pink,
+                ),
+              ),
+              ListTile(
+                title: Text('Home'),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('History'),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Container(
+          width: MediaQuery.of(context).size.width / 3,
+          child: Expanded(
+            child: ListTile(
+              title: Text(
+                'Balance',
+                style: TextStyle(fontSize: 20.0),
+              ),
+              subtitle: Text(
+                '₹$bal',
+                style: TextStyle(fontSize: 18.0),
               ),
             ),
-            ListTile(
-              title: Text('Home'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('History'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
+          ),
         ),
-      ),
-      appBar: AppBar(
-        title: Text(
-          'Xpenses',
-        ),
-        actions: <Widget>[
-          PopupMenuButton(
-            onSelected: choiceAction,
-            itemBuilder: (context) {
-              return PopupMenuItems.choices.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          )
+        appBar: AppBar(
+          title: Text(
+            'Xpenses',
+          ),
+          actions: <Widget>[
+            PopupMenuButton(
+              onSelected: choiceAction,
+              itemBuilder: (context) {
+                return PopupMenuItems.choices.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+            )
 //          IconButton(
 //            icon: Icon(Icons.add),
 //            onPressed: () => _startAddNewTransaction(context),
 //          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            TransactionList(userTransactions),
           ],
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
+        body: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              TransactionList(),
+            ],
+          ),
         ),
-        onPressed: () => _startAddNewTransaction(context),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
       ),
     );
   }
