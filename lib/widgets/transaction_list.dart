@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';
-import 'package:flutter_complete_guide/services/firestore-crud.dart';
+import '../services/firestore-crud.dart';
 
 class TransactionList extends StatefulWidget {
 //  final List<Transactions> transactions;

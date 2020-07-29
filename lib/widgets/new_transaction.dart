@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/services/firestore-crud.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../services/firestore-crud.dart';
+
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
