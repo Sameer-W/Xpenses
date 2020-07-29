@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/models/popupmenuitems.dart';
-import 'package:flutter_complete_guide/services/firestore-crud.dart';
-import 'package:flutter_complete_guide/widgets/history-transactions.dart';
+import 'package:./models/popupmenuitems.dart';
+import 'package:./services/firestore-crud.dart';
+import 'package:./widgets/history-transactions.dart';
 
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
