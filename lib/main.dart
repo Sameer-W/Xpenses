@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/models/popupmenuitems.dart';
+import 'package:flutter_complete_guide/services/firestore-crud.dart';
 import 'package:flutter_complete_guide/widgets/history-transactions.dart';
 
 import './widgets/new_transaction.dart';
@@ -53,10 +54,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transactions> userTransactions = [];
   double bal = 0;
-
-  updateBalance(enteredAmount) {
-    bal = bal - enteredAmount;
-  }
+  double amount;
 
   void _addNewTransaction(String txTitle, double txAmount, String txComment) {
     final newTx = Transactions(

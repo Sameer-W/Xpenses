@@ -13,6 +13,18 @@ class CrudMethods {
         .snapshots();
   }
 
+  searchData(useName) {
+    _firestore
+        .collection('transactions')
+        .where('name', isEqualTo: useName)
+        .orderBy('date')
+        .snapshots();
+  }
+
+  updateData(docID, newValues) {
+    _firestore.collection('transactions').document(docID).updateData(newValues);
+  }
+
   deleteData(docID) {
     _firestore.collection('transactions').document(docID).delete();
   }

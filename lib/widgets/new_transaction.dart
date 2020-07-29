@@ -25,8 +25,12 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredAmount = double.parse(amountController.text);
     final enteredComment = commentController.text;
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0 || selectedDate == null) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
+    }
+
+    if (selectedDate == null) {
+      selectedDate = DateTime.now();
     }
 
     dynamic txData = {
@@ -44,7 +48,7 @@ class _NewTransactionState extends State<NewTransaction> {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2019),
+      firstDate: DateTime(2020),
       lastDate: DateTime.now(),
     ).then((pickedDate) {
       if (pickedDate == null) {
